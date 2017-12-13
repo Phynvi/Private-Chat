@@ -14,18 +14,22 @@ public class Chatbox extends JFrame {
     JTextArea chatHistory = new JTextArea();
 
     public Chatbox(Client client) {
+        System.out.println("In chatbox constructor");
+
+
         this.client = client;
 
         setSize(600,400);
         add(new JLabel("Chatbox"));
         setTitle("Chatbox");
-        setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         setLayout(new BorderLayout());
 
         add(createChatArea(), BorderLayout.CENTER);
         add(createUserIn(), BorderLayout.PAGE_END);
+
+        setVisible(true);
     }
 
     private JPanel createChatArea() {

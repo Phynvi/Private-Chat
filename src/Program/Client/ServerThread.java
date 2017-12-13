@@ -42,6 +42,7 @@ public class ServerThread implements Runnable {
                 if (readyToSend)
                 {
                     out.println(name + " > " + userInput);
+                    readyToSend = false;
                 }
             }
         } catch (Exception e) {
