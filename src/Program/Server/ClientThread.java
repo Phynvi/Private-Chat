@@ -1,18 +1,17 @@
-package Server;
+package Program.Server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class ClientThread extends ChatServer implements Runnable {
     private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
 
-    public ClientThread(Socket socket)
+    public ClientThread(Socket socket) throws Exception
     {
         this.socket = socket;
     }

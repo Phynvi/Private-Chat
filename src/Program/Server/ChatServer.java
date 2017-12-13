@@ -1,9 +1,8 @@
-package Server;
+package Program.Server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.channels.WritableByteChannel;
 import java.util.ArrayList;
 
 public class ChatServer {
@@ -11,13 +10,13 @@ public class ChatServer {
     static ArrayList<ClientThread> clients;
     private static int portnumber = 4444;
 
-    public static void main(String[] args) throws IOException {
+    public ChatServer() throws Exception {
         serverSocket = new ServerSocket(portnumber);
 
         acceptClients();
     }
 
-    public static void acceptClients() throws IOException {
+    private void acceptClients() throws Exception {
         clients = new ArrayList<>();
         while (true)
         {
@@ -28,7 +27,7 @@ public class ChatServer {
             thread.start();
 
             clients.add(client);
-            System.out.println("Client added!");
+            System.out.println("Program.Client added!");
         }
     }
 }

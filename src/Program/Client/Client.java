@@ -1,16 +1,13 @@
-package Client;
+package Program.Client;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.Scanner;
 
 public class Client {
-
     private static int portnumber = 4444;
+    private ServerThread server;
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public Client() throws Exception {
         Socket socket = null;
         System.out.println("Please input your username: ");
         Scanner s = new Scanner(System.in);
@@ -23,7 +20,14 @@ public class Client {
         }
         Thread.sleep(1000);
 
-        Thread server = new Thread(new ServerThread(socket, "kj"/*name*/));
-        server.start();
+        server = new ServerThread(socket, name);
+
+        Thread thread = new Thread(server);
+        thread.start();
+    }
+
+    public ServerThread getServer()
+    {
+        return this.server;
     }
 }

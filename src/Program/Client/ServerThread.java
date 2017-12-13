@@ -1,10 +1,9 @@
-package Client;
+package Program.Client;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class ServerThread implements Runnable {
     private Socket socket;
@@ -12,6 +11,9 @@ public class ServerThread implements Runnable {
     private BufferedReader serverIn;
     private BufferedReader userIn;
     private PrintWriter out;
+
+    private boolean readyToSend = false;
+    private String userInput;
 
     public ServerThread(Socket socket, String name)
     {
@@ -26,19 +28,16 @@ public class ServerThread implements Runnable {
             serverIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             userIn = new BufferedReader(new InputStreamReader(System.in));
 
-            System.out.println("Running shit");
-
             while (!socket.isClosed()) {
 
                 if (serverIn.ready()) {
-                    System.out.println("Server ready");
+                    System.out.println("Program.Server ready");
                     String input = serverIn.readLine();
                     if (input != null) {
                         System.out.println(input);
                     }
                 }
-                String userInput;
-                while ((userInput = userIn.readLine()) != null)
+                if (readyToSend)
                 {
                     out.println(name + " > " + userInput);
                 }
@@ -46,5 +45,10 @@ public class ServerThread implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void send(String text) {
+        this.readyToSend = true;
+        this.userInput = text;
     }
 }
