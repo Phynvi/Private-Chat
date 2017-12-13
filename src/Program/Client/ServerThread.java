@@ -1,5 +1,6 @@
 package Program.Client;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -14,6 +15,8 @@ public class ServerThread implements Runnable {
 
     private boolean readyToSend = false;
     private String userInput;
+
+    private JTextArea chatArea;
 
     public ServerThread(Socket socket, String name)
     {
@@ -31,10 +34,9 @@ public class ServerThread implements Runnable {
             while (!socket.isClosed()) {
 
                 if (serverIn.ready()) {
-                    System.out.println("Program.Server ready");
                     String input = serverIn.readLine();
-                    if (input != null) {
-                        System.out.println(input);
+                    if (input != null && chatArea != null) {
+                        chatArea.append(input);
                     }
                 }
                 if (readyToSend)
@@ -50,5 +52,9 @@ public class ServerThread implements Runnable {
     public void send(String text) {
         this.readyToSend = true;
         this.userInput = text;
+    }
+
+    public void setChatArea(JTextArea chatArea) {
+        this.chatArea = chatArea;
     }
 }

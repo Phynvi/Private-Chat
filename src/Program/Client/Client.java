@@ -1,5 +1,6 @@
 package Program.Client;
 
+import javax.swing.*;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -7,11 +8,8 @@ public class Client {
     private static int portnumber = 4444;
     private ServerThread server;
 
-    public Client() throws Exception {
+    public Client(String name) throws Exception {
         Socket socket = null;
-        System.out.println("Please input your username: ");
-        Scanner s = new Scanner(System.in);
-        String name = s.nextLine();
 
         socket = new Socket("localhost", portnumber);
         if (socket.isConnected())

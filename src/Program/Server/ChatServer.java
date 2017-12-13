@@ -9,6 +9,7 @@ public class ChatServer {
     private static ServerSocket serverSocket;
     static ArrayList<ClientThread> clients;
     private static int portnumber = 4444;
+    private boolean ready;
 
     public ChatServer() throws Exception {
         serverSocket = new ServerSocket(portnumber);
@@ -18,6 +19,7 @@ public class ChatServer {
 
     private void acceptClients() throws Exception {
         clients = new ArrayList<>();
+        ready = true;
         while (true)
         {
             Socket socket = serverSocket.accept();
@@ -27,7 +29,11 @@ public class ChatServer {
             thread.start();
 
             clients.add(client);
-            System.out.println("Program.Client added!");
+            System.out.println("Client added!");
         }
+    }
+
+    public boolean isReady() {
+        return ready;
     }
 }

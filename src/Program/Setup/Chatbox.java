@@ -1,6 +1,7 @@
-package Program;
+package Program.Setup;
 
 import Program.Client.Client;
+import Program.Program;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,18 +11,33 @@ public class Chatbox extends JFrame {
     private Client client;
     JTextPane userField = new JTextPane();
     JButton sendText = new JButton("Send");
+    JTextArea chatHistory = new JTextArea();
 
     public Chatbox(Client client) {
         this.client = client;
 
-        this.setSize(600,400);
-        this.add(new JLabel("Chatbox"));
-        this.setTitle("Chatbox");
-        this.setVisible(true);
+        setSize(600,400);
+        add(new JLabel("Chatbox"));
+        setTitle("Chatbox");
+        setVisible(true);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         setLayout(new BorderLayout());
 
+        add(createChatArea(), BorderLayout.CENTER);
         add(createUserIn(), BorderLayout.PAGE_END);
+    }
+
+    private JPanel createChatArea() {
+        JPanel chatArea = new JPanel();
+        JScrollPane scroll = new JScrollPane(chatHistory);
+        chatArea.add(scroll);
+
+        revalidate();
+
+        client.getServer().setChatArea(chatHistory);
+
+        return chatArea;
     }
 
     private JPanel createUserIn() {
