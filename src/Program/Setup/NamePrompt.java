@@ -21,6 +21,8 @@ public class NamePrompt extends JFrame {
         setLayout(new BorderLayout());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        setTitle("Join chat room");
+
         add(nameArea(), BorderLayout.PAGE_START);
         add(confirm(), BorderLayout.PAGE_END);
 

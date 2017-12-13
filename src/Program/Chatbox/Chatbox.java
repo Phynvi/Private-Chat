@@ -1,4 +1,4 @@
-package Program.Setup;
+package Program.Chatbox;
 
 import Program.Client.Client;
 import Program.Program;
@@ -9,16 +9,17 @@ import java.awt.*;
 public class Chatbox extends JFrame {
 
     private Client client;
-    JTextPane userField = new JTextPane();
-    JButton sendText = new JButton("Send");
-    JTextArea chatHistory = new JTextArea();
+    private JTextPane userField = new JTextPane();
+    private JButton sendText = new JButton("Send");
+    private JTextArea chatHistory = new JTextArea();
 
     public Chatbox(Client client) {
-        System.out.println("In chatbox constructor");
-
-
         this.client = client;
 
+        createChatbox();
+    }
+
+    private void createChatbox() {
         setSize(600,400);
         add(new JLabel("Chatbox"));
         setTitle("Chatbox");
@@ -58,5 +59,10 @@ public class Chatbox extends JFrame {
         userIn.revalidate();
 
         return userIn;
+    }
+
+    public void appendToChatbox(String toAppend)
+    {
+        chatHistory.append(toAppend);
     }
 }

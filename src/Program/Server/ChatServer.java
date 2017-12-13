@@ -12,7 +12,6 @@ public class ChatServer implements Runnable {
     private boolean ready;
 
     public ChatServer() throws Exception {
-        System.out.println("Making serverSocket\n\n");
         serverSocket = new ServerSocket(portnumber);
     }
 
@@ -34,7 +33,6 @@ public class ChatServer implements Runnable {
             thread.start();
 
             clients.add(client);
-            System.out.println("Client added!");
         }
     }
 

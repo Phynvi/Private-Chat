@@ -35,8 +35,9 @@ public class ClientThread implements Runnable {
                 {
                     for (ClientThread client: clients)
                     {
-                        client.getWriter().write(input);
-                        System.out.println("Wrote " + input);
+                        client.getWriter().write(input + "\n");
+                        client.getWriter().flush();
+                        //System.out.println("ClientThread.java: Wrote " + input);
                     }
                 }
             }

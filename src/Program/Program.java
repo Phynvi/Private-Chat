@@ -2,7 +2,7 @@ package Program;
 
 import Program.Client.Client;
 import Program.Server.ChatServer;
-import Program.Setup.Chatbox;
+import Program.Chatbox.Chatbox;
 import Program.Setup.NamePrompt;
 
 public class Program {
@@ -24,7 +24,6 @@ public class Program {
         //Create the client
         Client client = new Client(getInfo.getName());
 
-        System.out.println("Hello..?");
         new Chatbox(client);
     }
 

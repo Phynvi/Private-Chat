@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+/**
+ *  Handles the communication with the server in a separate thread
+ */
 public class ServerThread implements Runnable {
     private Socket socket;
     private String name;
@@ -34,9 +37,11 @@ public class ServerThread implements Runnable {
             while (!socket.isClosed()) {
 
                 if (serverIn.ready()) {
+                    System.out.println("Server in.ready?!");
                     String input = serverIn.readLine();
                     if (input != null && chatArea != null) {
                         chatArea.append(input);
+                        System.out.println("Chat area append? ServerThread.java");
                     }
                 }
                 if (readyToSend)
