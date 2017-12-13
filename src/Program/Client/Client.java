@@ -24,7 +24,7 @@ public class Client {
         thread.start();
     }
 
-    public ServerThread getServer()
+    public ServerThread getServerThread()
     {
         return this.serverThread;
     }

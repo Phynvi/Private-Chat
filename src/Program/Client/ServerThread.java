@@ -37,11 +37,9 @@ public class ServerThread implements Runnable {
             while (!socket.isClosed()) {
 
                 if (serverIn.ready()) {
-                    System.out.println("Server in.ready?!");
                     String input = serverIn.readLine();
                     if (input != null && chatArea != null) {
-                        chatArea.append(input);
-                        System.out.println("Chat area append? ServerThread.java");
+                        chatArea.append(input + "\n");
                     }
                 }
                 if (readyToSend)

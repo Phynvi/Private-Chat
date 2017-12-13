@@ -9,7 +9,7 @@ import java.awt.*;
 public class Chatbox extends JFrame {
 
     private Client client;
-    private JTextPane userField = new JTextPane();
+    private JTextField userField = new JTextField();
     private JButton sendText = new JButton("Send");
     private JTextArea chatHistory = new JTextArea();
 
@@ -35,12 +35,19 @@ public class Chatbox extends JFrame {
 
     private JPanel createChatArea() {
         JPanel chatArea = new JPanel();
+
+        chatArea.setLayout(new BorderLayout());
+
+        chatHistory.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        chatHistory.setEditable(false);
+        chatHistory.setAutoscrolls(true);
+        chatHistory.setLineWrap(true);
         JScrollPane scroll = new JScrollPane(chatHistory);
-        chatArea.add(scroll);
+        chatArea.add(scroll, BorderLayout.CENTER);
 
         revalidate();
 
-        client.getServer().setChatArea(chatHistory);
+        client.getServerThread().setChatArea(chatHistory);
 
         return chatArea;
     }
@@ -52,8 +59,12 @@ public class Chatbox extends JFrame {
         userIn.add(userField);
         userIn.add(sendText, BorderLayout.EAST);
 
+
+        userField.addActionListener(e -> {
+            sendText();
+        });
         sendText.addActionListener(e -> {
-            client.getServer().send(userField.getText());
+
         });
 
         userIn.revalidate();
@@ -61,8 +72,8 @@ public class Chatbox extends JFrame {
         return userIn;
     }
 
-    public void appendToChatbox(String toAppend)
-    {
-        chatHistory.append(toAppend);
+    private void sendText() {
+        client.getServerThread().send(userField.getText());
+        userField.setText("");
     }
 }
