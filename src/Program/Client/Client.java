@@ -11,15 +11,13 @@ public class Client {
     public Client(String name) throws Exception {
         Socket socket = new Socket("localhost", portnumber);
 
-        if (socket.isConnected())
+        /*if (socket.isConnected())
         {
             System.out.println("Connected successfully!");
-        }
-        System.out.println("wtf");
+        }*/
         Thread.sleep(1000);
 
         //Client's thread to talk to server
-        System.out.println("Here");
         serverThread = new ServerThread(socket, name);
 
         Thread thread = new Thread(serverThread);

@@ -32,7 +32,6 @@ public class Program {
         ChatServer server;
         try {
             //Make a server for clients to connect to
-            System.out.println("Call to constructor chatServer from Program.java");
             server = new ChatServer();
             //Put it in its own thread
             Thread serverThread = new Thread(server);
@@ -45,7 +44,6 @@ public class Program {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Chat server created.\n");
     }
 
 
