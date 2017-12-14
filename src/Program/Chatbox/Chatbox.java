@@ -1,7 +1,7 @@
 package Program.Chatbox;
 
 import Program.Client.Client;
-import Program.Program;
+import Program. ConnectionVariables;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,14 +15,16 @@ public class Chatbox extends JFrame {
 
     public Chatbox(Client client) {
         this.client = client;
+        this.setTitle(client.getName());
 
         createChatbox();
     }
 
     private void createChatbox() {
         setSize(600,400);
+        setLocationRelativeTo(null);
         add(new JLabel("Chatbox"));
-        setTitle("Chatbox");
+        setTitle("Chatbox - " + ConnectionVariables.ip + ConnectionVariables.port);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         setLayout(new BorderLayout());
@@ -64,7 +66,7 @@ public class Chatbox extends JFrame {
             sendText();
         });
         sendText.addActionListener(e -> {
-
+            sendText();
         });
 
         userIn.revalidate();

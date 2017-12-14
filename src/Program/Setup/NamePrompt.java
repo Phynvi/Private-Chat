@@ -46,7 +46,7 @@ public class NamePrompt extends JFrame {
         server.addActionListener(e -> {
             infoGrabber.setName(nameArea.getText());
             infoGrabber.setCreateServer(true);
-            infoGrabber.setReady(true);
+            new ExplainToHost(infoGrabber);
             dispose();
         });
 

@@ -2,6 +2,7 @@ package Program.Client;
 
 import javax.swing.*;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -21,19 +22,20 @@ public class ServerThread implements Runnable {
 
     private JTextArea chatArea;
 
-    public ServerThread(Socket socket, String name)
-    {
+    public ServerThread(Socket socket, String name) throws IOException {
         this.socket = socket;
         this.name = name;
+
+        out = new PrintWriter(socket.getOutputStream(), true);
+        serverIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        userIn = new BufferedReader(new InputStreamReader(System.in));
+
+        out.println(name + " has entered the channel.");
     }
 
     @Override
     public void run() {
         try {
-            out = new PrintWriter(socket.getOutputStream(), true);
-            serverIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            userIn = new BufferedReader(new InputStreamReader(System.in));
-
             while (!socket.isClosed()) {
 
                 if (serverIn.ready()) {

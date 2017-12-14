@@ -14,19 +14,20 @@ public class ClientThread implements Runnable {
     private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
+    private boolean welcomed = false;
 
     public ClientThread(Socket socket, ArrayList<ClientThread> clients) throws Exception
     {
         this.socket = socket;
         this.clients = clients;
+
+        out = new PrintWriter(socket.getOutputStream(), true);
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
 
     @Override
     public void run() {
         try {
-            out = new PrintWriter(socket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
             //while the socket it alive
             while (!socket.isClosed())
             {
@@ -37,7 +38,6 @@ public class ClientThread implements Runnable {
                     {
                         client.getWriter().write(input + "\n");
                         client.getWriter().flush();
-                        //System.out.println("ClientThread.java: Wrote " + input);
                     }
                 }
             }

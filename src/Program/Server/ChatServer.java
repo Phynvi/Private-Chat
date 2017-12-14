@@ -1,5 +1,7 @@
 package Program.Server;
 
+import Program.ConnectionVariables;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -8,11 +10,10 @@ import java.util.ArrayList;
 public class ChatServer implements Runnable {
     private static ServerSocket serverSocket;
     static ArrayList<ClientThread> clients;
-    private static int portnumber = 4444;
     private boolean ready;
 
     public ChatServer() throws Exception {
-        serverSocket = new ServerSocket(portnumber);
+        serverSocket = new ServerSocket(ConnectionVariables.port);
     }
 
     public void run() {

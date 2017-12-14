@@ -1,15 +1,18 @@
 package Program.Client;
 
+import Program.ConnectionVariables;
+
 import javax.swing.*;
 import java.net.Socket;
 import java.util.Scanner;
 
 public class Client {
-    private static int portnumber = 4444;
     private ServerThread serverThread;
+    private String name;
 
     public Client(String name) throws Exception {
-        Socket socket = new Socket("localhost", portnumber);
+        Socket socket = new Socket(ConnectionVariables.ip, ConnectionVariables.port);
+        this.name = name;
 
         /*if (socket.isConnected())
         {
@@ -27,5 +30,9 @@ public class Client {
     public ServerThread getServerThread()
     {
         return this.serverThread;
+    }
+
+    public String getName() {
+        return name;
     }
 }
