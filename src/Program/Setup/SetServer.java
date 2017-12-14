@@ -8,8 +8,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import Program.ConnectionVariables;
 
-public class ExplainToHost extends JFrame {
-    public ExplainToHost(Program.getInfo infoGrabber)
+public class SetServer extends JFrame {
+    public SetServer(Program.getInfo infoGrabber)
     {
         setSize(600,350);
         setTitle("Set hosting information");
