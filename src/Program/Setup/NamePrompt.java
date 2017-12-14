@@ -8,7 +8,7 @@ import java.awt.*;
 public class NamePrompt extends JFrame {
 
     private Program.getInfo infoGrabber;
-    private JTextArea nameArea = new JTextArea();
+    private JTextField nameField = new JTextField();
     private JButton client = new JButton("Enter pre-existing server");
     private JButton server = new JButton("Create and enter server");
 
@@ -37,14 +37,22 @@ public class NamePrompt extends JFrame {
         confirmPan.add(server, BorderLayout.PAGE_END);
 
         client.addActionListener(e -> {
-            infoGrabber.setName(nameArea.getText());
+            if (!checkName())
+            {
+                return;
+            }
+            infoGrabber.setName(nameField.getText());
             infoGrabber.setCreateServer(false);
             new JoinServer(infoGrabber);
             dispose();
         });
 
         server.addActionListener(e -> {
-            infoGrabber.setName(nameArea.getText());
+            if (!checkName())
+            {
+                return;
+            }
+            infoGrabber.setName(nameField.getText());
             infoGrabber.setCreateServer(true);
             new SetServer(infoGrabber);
             dispose();
@@ -54,18 +62,27 @@ public class NamePrompt extends JFrame {
         return confirmPan;
     }
 
+    private boolean checkName() {
+        if (nameField.getText().length() < 2)
+        {
+            JOptionPane.showMessageDialog(null, "Your name must be longer than 1 character.", "Invalid name", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
     private JPanel nameArea() {
         JPanel nameAreaPan = new JPanel();
         JPanel formatPan = new JPanel();
         formatPan.setLayout(new GridLayout(3, 1));
         nameAreaPan.setLayout(new GridLayout(1, 4));
 
-        nameArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        nameField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         formatPan.add(new JLabel());
         nameAreaPan.add(new JLabel());
         nameAreaPan.add(new JLabel("Name: "));//Placement 6
-        nameAreaPan.add(nameArea);//Placement 7
+        nameAreaPan.add(nameField);//Placement 7
         nameAreaPan.add(new JLabel());
         formatPan.add(nameAreaPan);
 
