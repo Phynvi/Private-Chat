@@ -24,7 +24,7 @@ public class Chatbox extends JFrame {
         setSize(600,400);
         setLocationRelativeTo(null);
         add(new JLabel("Chatbox"));
-        setTitle("Chatbox - " + ConnectionVariables.ip + ConnectionVariables.port);
+        setTitle("Chatbox - " + ConnectionVariables.ip + ": " + ConnectionVariables.port);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         setLayout(new BorderLayout());
