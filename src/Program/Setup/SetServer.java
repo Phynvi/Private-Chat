@@ -21,6 +21,7 @@ public class SetServer extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JTextField ipField = new JTextField();
+        JTextField localIP = new JTextField();
         try {
             URL url_name = new URL("http://bot.whatismyipaddress.com");
 
@@ -29,9 +30,10 @@ public class SetServer extends JFrame {
             // reads system IPAddress
 
             ipField.setText(sc.readLine().trim());
-          //ipField.setText(InetAddress.getLocalHost().getHostAddress());
+            localIP.setText(InetAddress.getLocalHost().getHostAddress());
         } catch (Exception e) {
             ipField.setText("Unable to detect.");
+            localIP.setText("Unable to detect.");
         }
 
         JTextField port = new JTextField();
@@ -40,7 +42,9 @@ public class SetServer extends JFrame {
         setLayout(new GridLayout(7,1));
         add(new JLabel("To join your chatroom, other users must enter the IP address (or set to \"localhost\" if not portforwarding): "));
         add(ipField);
-        add(new JLabel("If you want people outside your LAN to connect you're going to have to portforward your port."));
+        add(new JLabel("Local IP (used if portforwarding):"));
+        add(localIP);
+        add(new JLabel("If you want people outside your LAN to connect you're going to have to portforward your port AND your local IP (TCP connection)."));
         add(new JLabel("Port: "));
         add(port);
         add(start);
@@ -48,7 +52,7 @@ public class SetServer extends JFrame {
 
         start.addActionListener(e -> {
             ConnectionVariables.port = Integer.parseInt(port.getText());
-            ConnectionVariables.ip = ipField.getText();
+            ConnectionVariables.ip = localIP.getText();
             System.out.println("Parsing port: " + port.getText());
             infoGrabber.setReady(true);
             dispose();
