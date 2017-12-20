@@ -17,7 +17,12 @@ public class Encrypter {
 
     public static String getDecryptedVersion(String toDecrypt, String key)
     {
-        long[] convertedBytes = fromString(toDecrypt);
+        long[] convertedBytes = new long[0];
+        try {
+            convertedBytes = fromString(toDecrypt);
+        } catch (Exception e) {
+            return new String("*****\nWARNING: COULD NOT DECRYPT " + toDecrypt + "\nIT IS POSSIBLE SOMEONE IS LISTENING IN.\n*****");
+        }
         byte[] byteArray = new byte[convertedBytes.length];
         for (int i = 0; i < byteArray.length; i++)
         {
@@ -31,7 +36,7 @@ public class Encrypter {
         return new String(byteArray);
     }
 
-    private static long[] fromString(String toParse) {
+    private static long[] fromString(String toParse) throws Exception{
         String[] parts = toParse.split(" ");
         long[] converted = new long[parts.length];
         for(int n = 0; n < parts.length; n++) {

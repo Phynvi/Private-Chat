@@ -35,7 +35,7 @@ public class ServerThread implements Runnable {
         serverIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         userIn = new BufferedReader(new InputStreamReader(System.in));
 
-        out.println(name + " has entered the channel.");
+        out.println(getEncryptedVersion(name + " has entered the channel.", password));
     }
 
     @Override
