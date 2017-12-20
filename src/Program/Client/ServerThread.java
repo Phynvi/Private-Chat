@@ -29,12 +29,13 @@ public class ServerThread implements Runnable {
     public ServerThread(Socket socket, String name, String password) throws IOException {
         this.socket = socket;
         this.name = name;
+        this.password = password;
 
         out = new PrintWriter(socket.getOutputStream(), true);
         serverIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         userIn = new BufferedReader(new InputStreamReader(System.in));
 
-        out.println(name + " has entered the channel.");
+        out.println(getEncryptedVersion(name + " has entered the channel.", password));
     }
 
     @Override
