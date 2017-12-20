@@ -9,6 +9,7 @@ public class NamePrompt extends JFrame {
 
     private Program.getInfo infoGrabber;
     private JTextField nameField = new JTextField();
+    private JTextField passField = new JTextField();
     private JButton client = new JButton("Enter pre-existing server");
     private JButton server = new JButton("Create and enter server");
 
@@ -16,7 +17,7 @@ public class NamePrompt extends JFrame {
     {
         this.infoGrabber = infoGrabber;
 
-        setSize(300,140);
+        setSize(320,160);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -42,6 +43,7 @@ public class NamePrompt extends JFrame {
                 return;
             }
             infoGrabber.setName(nameField.getText());
+            infoGrabber.setPassword(passField.getText());
             infoGrabber.setCreateServer(false);
             new JoinServer(infoGrabber);
             dispose();
@@ -54,6 +56,7 @@ public class NamePrompt extends JFrame {
             }
             infoGrabber.setName(nameField.getText());
             infoGrabber.setCreateServer(true);
+            infoGrabber.setPassword(passField.getText());
             new SetServer(infoGrabber);
             dispose();
         });
@@ -74,8 +77,10 @@ public class NamePrompt extends JFrame {
     private JPanel nameArea() {
         JPanel nameAreaPan = new JPanel();
         JPanel formatPan = new JPanel();
-        formatPan.setLayout(new GridLayout(3, 1));
+        JPanel encryptionAreaPan = new JPanel();
+        formatPan.setLayout(new GridLayout(4, 1));
         nameAreaPan.setLayout(new GridLayout(1, 4));
+        encryptionAreaPan.setLayout(new GridLayout(1,4));
 
         nameField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -84,7 +89,13 @@ public class NamePrompt extends JFrame {
         nameAreaPan.add(new JLabel("Name: "));//Placement 6
         nameAreaPan.add(nameField);//Placement 7
         nameAreaPan.add(new JLabel());
+
+        encryptionAreaPan.add(new JLabel());
+        encryptionAreaPan.add(new JLabel("Password: "));
+        encryptionAreaPan.add(passField);
+        encryptionAreaPan.add(new JLabel());
         formatPan.add(nameAreaPan);
+        formatPan.add(encryptionAreaPan);
 
         return formatPan;
     }
