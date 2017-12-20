@@ -22,7 +22,7 @@ public class Program {
         }
 
         //Create the client
-        Client client = new Client(getInfo.getName());
+        Client client = new Client(getInfo.getName(), getInfo.getPassword());
 
         new Chatbox(client);
     }
@@ -50,8 +50,13 @@ public class Program {
     public static class getInfo
     {
         private String name;
+        private String password;
         private boolean createServer;
         private boolean ready = false;
+
+        public String getPassword() {
+            return password;
+        }
 
         public String getName() {
             return name;
@@ -75,6 +80,10 @@ public class Program {
 
         public void setReady(boolean ready) {
             this.ready = ready;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
         }
     }
 }

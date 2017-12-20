@@ -7,12 +7,16 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import static Program.Encrypter.getDecryptedVersion;
+import static Program.Encrypter.getEncryptedVersion;
+
 /**
  *  Handles the communication with the server in a separate thread
  */
 public class ServerThread implements Runnable {
     private Socket socket;
     private String name;
+    private String password;
     private BufferedReader serverIn;
     private BufferedReader userIn;
     private PrintWriter out;
@@ -22,7 +26,7 @@ public class ServerThread implements Runnable {
 
     private JTextArea chatArea;
 
-    public ServerThread(Socket socket, String name) throws IOException {
+    public ServerThread(Socket socket, String name, String password) throws IOException {
         this.socket = socket;
         this.name = name;
 
@@ -41,12 +45,12 @@ public class ServerThread implements Runnable {
                 if (serverIn.ready()) {
                     String input = serverIn.readLine();
                     if (input != null && chatArea != null) {
-                        chatArea.append(input + "\n");
+                        chatArea.append(getDecryptedVersion(input, password) + "\n");
                     }
                 }
                 if (readyToSend)
                 {
-                    out.println(name + "> " + userInput);
+                    out.println(getEncryptedVersion(name + ">" + userInput, password));
                     readyToSend = false;
                 }
             }
